@@ -11,7 +11,24 @@
 </style>
 
 <script>
+import axios from 'axios'
+import * as config from '../config'
 export default {
-  name: 'Home'
+  methods: {
+    getPhotos () {
+      axios.get(`${config.globalSettings.baseUrl}/photos`, {
+        headers: { Authorization: config.globalSettings.accessKey }
+      })
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
+  mounted () {
+    this.getPhotos()
+  }
 }
 </script>

@@ -2,7 +2,7 @@
 <div class="navigation-bar">
   <div class="logo-holder">
     <router-link to="/">
-      <img src="../assets/icons/LOGO--SMALL.svg" alt="logo">
+      <img src="../assets/images/LOGO--SMALL.svg" alt="logo">
     </router-link>
   </div>
   <div class="nav-holder">
@@ -68,12 +68,12 @@ export default {
       }
       a.home-link {
         &:after {
-          background-image: url('../assets/icons/picture.svg');
+          background-image: url('../assets/images/picture.svg');
         }
       }
       a.favourites-link {
         &:after {
-          background-image: url('../assets/icons/heart.svg');
+          background-image: url('../assets/images/heart.svg');
         }
       }
     }
@@ -90,12 +90,12 @@ export default {
       button.subscribe-btn {
         margin-bottom: 25px;
         &:after {
-          background-image: url('../assets/icons/letter.svg');
+          background-image: url('../assets/images/letter.svg');
         }
       }
       button.color-mode-btn {
         &:after {
-          background-image: url('../assets/icons/sun.svg');
+          background-image: url('../assets/images/sun.svg');
         }
       }
     }
