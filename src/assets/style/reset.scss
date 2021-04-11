@@ -1,0 +1,7 @@
+button {
+  background-color: unset;
+  border: unset;
+  &:focus {
+    outline: none;
+  }
+}
