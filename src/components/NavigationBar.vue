@@ -80,8 +80,10 @@ export default {
     .preferences-holder {
       display: flex;
       flex-direction: column;
+      align-items: center;
       padding-bottom: 30px;
       button {
+        width: 24px;
         height: 24px;
         @include btn-style;
       }
