@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <div id="container" class="container">
+    <div class="container">
       <a href="#" class="photo" v-for="n in 12" :key="n">
         <img src="../assets/images/dog.jpg" alt="">
+        <a href="#like" class="like"></a>
       </a>
     </div>
   </div>
@@ -11,12 +12,15 @@
 <style lang="scss">
   @import '../assets/style/variables';
   .home {
-    padding-left: 90px;
+    padding: 5px 5px 5px 95px;
+    background-color: $color2;
+    min-height: calc(100vh - 10px);
   }
   .container {
     display: flex;
     flex-wrap: wrap;
     .photo {
+      position: relative;
       background: gray;
       flex-basis: calc(16.66% - 20px);
       margin: 10px;
@@ -25,6 +29,18 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+      .like {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background-color: $color5;
+        background-image: url('../assets/images/heart-full.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 55%;
       }
     }
     .photo:nth-of-type(even):nth-of-type(-n + 6),
@@ -43,15 +59,12 @@ import * as config from '../config'
 export default {
   data () {
     return {
-      photos: {
-        type: Object,
-        required: true,
-        default: {}
-      }
+      photos: null,
+      showNewsletterModal: false
     }
   },
   methods: {
-    async getPhotos () {
+    getPhotos () {
       return axios.get(`${config.globalSettings.baseUrl}/photos`, {
         headers: { Authorization: config.globalSettings.accessKey }
       })

@@ -10,20 +10,37 @@
     <router-link to="/favourites" class="favourites-link"/>
   </div>
   <div class="preferences-holder">
-    <button type="button" class="subscribe-btn"></button>
+    <button type="button" class="subscribe-btn" @click="toggleSubscribeModal()"></button>
     <button type="button" class="color-mode-btn"></button>
   </div>
 </div>
+  <teleport to="body">
+    <transition name="fade">
+      <subscribe-modal v-if="showSubscribeModal" @close="toggleSubscribeModal()"></subscribe-modal>
+    </transition>
+  </teleport>
 </template>
 
 <script>
+import SubscribeModal from './SubscribeModal'
 export default {
-  name: 'NavigationBar'
+  components: {
+    SubscribeModal
+  },
+  data () {
+    return {
+      showSubscribeModal: false
+    }
+  },
+  methods: {
+    toggleSubscribeModal () {
+      this.showSubscribeModal = !this.showSubscribeModal
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-  @import '../assets/style/reset';
   @import '../assets/style/variables';
   @mixin btn-style {
     position: relative;
