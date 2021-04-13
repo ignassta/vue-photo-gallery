@@ -4,7 +4,7 @@
 </template>
 
 <style lang="scss">
-@import './assets/style/reset';
+@import './assets/style/global';
 </style>
 
 <script>

@@ -12,18 +12,18 @@
 <style lang="scss">
   @import '../assets/style/variables';
   .home {
-    padding: 5px 5px 5px 95px;
+    padding: 20px 20px 20px 110px;
     background-color: $color2;
-    min-height: calc(100vh - 10px);
+    min-height: calc(100vh - 40px);
   }
   .container {
-    display: flex;
-    flex-wrap: wrap;
+    columns: 6 200px;
+    column-gap: 20px;
     .photo {
       position: relative;
-      background: gray;
-      flex-basis: calc(16.66% - 20px);
-      margin: 10px;
+      margin: 0 20px 20px 0;
+      display: inline-block;
+      width: 100%;
       height: 340px;
       img {
         width: 100%;
@@ -41,14 +41,14 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: 55%;
+        &:hover {
+          opacity: .7;
+        }
       }
     }
-    .photo:nth-of-type(even):nth-of-type(-n + 6),
-    .photo:nth-of-type(odd):nth-of-type(n + 6) {
+    .photo:nth-of-type(4n+2),
+    .photo:nth-of-type(4n+3) {
       height: 180px;
-    }
-    .photo:nth-of-type(even):nth-of-type(n + 7) {
-      transform: translateY(calc(10px - 50%));
     }
   }
 </style>
