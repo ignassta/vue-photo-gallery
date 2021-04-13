@@ -1,0 +1,203 @@
+<template>
+  <div class="picture-modal">
+    <div class="modal-holder">
+      <div class="modal-container">
+        <button class="close-btn" @click="$emit('close')">&#x2715;</button>
+        <div class="picture-col">
+          <img src="../assets/images/dog.jpg" alt="">
+        </div>
+        <div class="info-col">
+          <div class="top">
+            <div class="header">
+              <div class="author">
+                <div class="label">author</div>
+                <div class="name">Joe Doe</div>
+              </div>
+              <button class="like"></button>
+            </div>
+            <div class="description">
+              <div class="label">description</div>
+              <div>Summer set view</div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="stats">
+              <div>186</div>
+              <div>20</div>
+              <div>1,992</div>
+            </div>
+            <div class="picture-info">
+              <div class="column">
+                <div class="label">Camera Make</div>
+                <div>Canon</div>
+              </div>
+              <div class="column">
+                <div class="label">Camera Model</div>
+                <div>Canon EOS Rebel T3</div>
+              </div>
+              <div class="column">
+                <div class="label">Focal Length</div>
+                <div>43.0mm</div>
+              </div>
+              <div class="column">
+                <div class="label">Dimensions</div>
+                <div>2848 x 4272</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'PictureModal'
+}
+</script>
+
+<style lang="scss">
+  @import '../assets/style/variables';
+  .picture-modal {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal-holder {
+      max-width: 1134px;
+      max-height: 714px;
+      width: 100%;
+      .modal-container {
+        position: relative;
+        display: flex;
+        .close-btn {
+          position: absolute;
+          font-size: 40px;
+          line-height: 1;
+          color: $color9;
+          top: 12px;
+          right: 12px;
+          &:hover {
+            opacity: .7;
+          }
+        }
+        .picture-col, .info-col {
+          width: 50%;
+        }
+        .picture-col {
+          background-color: rgba($color6, .95);
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+        .info-col {
+          background-color: $color2;
+          box-sizing: border-box;
+          padding: 66px 58px 45px 58px;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          font-weight: 700;
+          color: $color4;
+          .label {
+            font-size: 12px;
+            color: $color7;
+            margin-bottom: 5px;
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            .author {
+              .name {
+                font-size: 24px;
+                color: $color5;
+              }
+            }
+            .like {
+              width: 50px;
+              height: 50px;
+              background-color: $color5;
+              background-image: url('../assets/images/heart-full.svg');
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 55%;
+              &:hover {
+                opacity: .7;
+              }
+            }
+          }
+          .description {
+            div:nth-of-type(2) {
+              font-size: 20px;
+            }
+          }
+          .stats {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 32px;
+            padding-left: 30px;
+            div {
+              font-size: 16px;
+              position: relative;
+              &:before {
+                position: absolute;
+                content: '';
+                width: 20px;
+                height: 20px;
+                top: 0;
+                left: -30px;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            div:nth-of-type(1) {
+              &:before {
+                background-image: url("./../assets/images/heart-full.svg");
+              }
+            }
+            div:nth-of-type(2) {
+              &:before {
+                background-image: url("./../assets/images/download.svg");
+              }
+            }
+            div:nth-of-type(3) {
+              &:before {
+                background-image: url("./../assets/images/eye.svg");
+              }
+            }
+            div:not(:nth-last-of-type(1)) {
+              margin-right: 50px;
+            }
+          }
+          .picture-info {
+            border-top: 1px solid $color9;
+            display: flex;
+            flex-wrap: wrap;
+            .column {
+              margin-top: 32px;
+              flex-basis: 30%;
+              flex-grow: 1;
+              div:nth-of-type(2) {
+                font-size: 16px;
+              }
+            }
+            .column:nth-of-type(2) {
+              flex-basis: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

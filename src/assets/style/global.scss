@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  font-family: $primaryFont;
+}
+h1, h2, h3 {
+  margin: 0;
 }
 a {
   text-decoration: none;
@@ -8,7 +12,16 @@ a {
 button {
   background-color: unset;
   border: unset;
+  transition: all .3s;
+  &:hover {
+    cursor: pointer;
+  }
   &:focus {
-    outline: none;
+    outline: unset;
+  }
+}
+input {
+  &:focus {
+    outline: unset;
   }
 }

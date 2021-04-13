@@ -1,13 +1,54 @@
 <template>
   <div class="home">
     <div class="container">
-      <a href="#" class="photo" v-for="n in 12" :key="n">
+      <a href="#" class="photo" v-for="n in 12" :key="n" @click.prevent="togglePictureModal">
         <img src="../assets/images/dog.jpg" alt="">
         <a href="#like" class="like"></a>
       </a>
     </div>
   </div>
+  <teleport to="body">
+    <transition name="fade">
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()"></picture-modal>
+    </transition>
+  </teleport>
 </template>
+
+<script>
+import axios from 'axios'
+import * as config from '../config'
+import PictureModal from '../components/PictureModal'
+export default {
+  components: {
+    PictureModal
+  },
+  data () {
+    return {
+      photos: null,
+      showPictureModal: false
+    }
+  },
+  methods: {
+    getPhotos () {
+      return axios.get(`${config.globalSettings.baseUrl}/photos`, {
+        headers: { Authorization: config.globalSettings.accessKey }
+      })
+        .then(response => {
+          this.photos = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    togglePictureModal () {
+      this.showPictureModal = !this.showPictureModal
+    }
+  },
+  async mounted () {
+    // await this.getPhotos()
+  }
+}
+</script>
 
 <style lang="scss">
   @import '../assets/style/variables';
@@ -52,32 +93,3 @@
     }
   }
 </style>
-
-<script>
-import axios from 'axios'
-import * as config from '../config'
-export default {
-  data () {
-    return {
-      photos: null,
-      showNewsletterModal: false
-    }
-  },
-  methods: {
-    getPhotos () {
-      return axios.get(`${config.globalSettings.baseUrl}/photos`, {
-        headers: { Authorization: config.globalSettings.accessKey }
-      })
-        .then(response => {
-          this.photos = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  },
-  async mounted () {
-    // await this.getPhotos()
-  }
-}
-</script>

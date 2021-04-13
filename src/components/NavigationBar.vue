@@ -1,19 +1,19 @@
 <template>
-<div class="navigation-bar">
-  <div class="logo-holder">
-    <router-link to="/">
-      <img src="../assets/images/LOGO--SMALL.svg" alt="logo">
-    </router-link>
+  <div class="navigation-bar">
+    <div class="logo-holder">
+      <router-link to="/">
+        <img src="../assets/images/LOGO--SMALL.svg" alt="logo">
+      </router-link>
+    </div>
+    <div class="nav-holder">
+      <router-link to="/" class="home-link"/>
+      <router-link to="/favourites" class="favourites-link"/>
+    </div>
+    <div class="preferences-holder">
+      <button type="button" class="subscribe-btn" @click="toggleSubscribeModal()"></button>
+      <button type="button" class="color-mode-btn"></button>
+    </div>
   </div>
-  <div class="nav-holder">
-    <router-link to="/" class="home-link"/>
-    <router-link to="/favourites" class="favourites-link"/>
-  </div>
-  <div class="preferences-holder">
-    <button type="button" class="subscribe-btn" @click="toggleSubscribeModal()"></button>
-    <button type="button" class="color-mode-btn"></button>
-  </div>
-</div>
   <teleport to="body">
     <transition name="fade">
       <subscribe-modal v-if="showSubscribeModal" @close="toggleSubscribeModal()"></subscribe-modal>
