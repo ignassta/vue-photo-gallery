@@ -1,5 +1,5 @@
 <template>
-  <div class="picture-modal">
+  <div class="picture-modal" :class="{'light-mode' : lightMode}">
     <div class="modal-holder">
       <div class="modal-container">
         <button class="close-btn" @click="$emit('close')">&#x2715;</button>
@@ -53,7 +53,9 @@
 
 <script>
 export default {
-  name: 'PictureModal'
+  props: {
+    lightMode: Boolean
+  }
 }
 </script>
 
@@ -195,6 +197,29 @@ export default {
             }
             .column:nth-of-type(2) {
               flex-basis: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .picture-modal.light-mode {
+    .modal-holder {
+      .modal-container {
+        .picture-col {
+          background-color: rgba($color3, .95);
+        }
+        .info-col {
+          background-color: $color3;
+          color: $color2;
+          .label {
+            color: $color9;
+          }
+          .stats {
+            div {
+              &:before {
+                filter: invert(100%);
+              }
             }
           }
         }

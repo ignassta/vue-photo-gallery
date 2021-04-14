@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{'light-mode' : lightMode}">
     <div class="container">
       <a href="#" class="photo" v-for="n in 12" :key="n" @click.prevent="togglePictureModal">
         <img src="../assets/images/dog.jpg" alt="">
@@ -9,7 +9,7 @@
   </div>
   <teleport to="body">
     <transition name="fade">
-      <picture-modal v-if="showPictureModal" @close="togglePictureModal()"></picture-modal>
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode"></picture-modal>
     </transition>
   </teleport>
 </template>
@@ -27,6 +27,9 @@ export default {
       photos: null,
       showPictureModal: false
     }
+  },
+  props: {
+    lightMode: Boolean
   },
   methods: {
     getPhotos () {
@@ -91,6 +94,9 @@ export default {
         height: 180px;
       }
     }
+  }
+  .home.light-mode {
+    background-color: $color4;
   }
   @media (max-width: 1200px) {
     .home {

@@ -1,6 +1,6 @@
 <template>
-  <navigation-bar/>
-  <router-view/>
+  <navigation-bar v-on:toggle-light-mode="getColorModeStatus"/>
+  <router-view :light-mode="lightMode"/>
 </template>
 
 <script>
@@ -8,6 +8,16 @@ import NavigationBar from './components/NavigationBar'
 export default {
   components: {
     NavigationBar
+  },
+  data () {
+    return {
+      lightMode: false
+    }
+  },
+  methods: {
+    getColorModeStatus (colorModeStatus) {
+      this.lightMode = colorModeStatus
+    }
   }
 }
 </script>

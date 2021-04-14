@@ -1,5 +1,5 @@
 <template>
-  <div class="subscribe-modal">
+  <div class="subscribe-modal" :class="{'light-mode' : lightMode}">
     <div class="modal-holder">
       <div class="modal-container">
         <button class="close-btn" @click="$emit('close')">&#x2715;</button>
@@ -22,6 +22,9 @@
 
 <script>
 export default {
+  props: {
+    lightMode: Boolean
+  }
 }
 </script>
 
@@ -91,6 +94,26 @@ export default {
           letter-spacing: 2px;
           &:hover {
             opacity: .7;
+          }
+        }
+      }
+    }
+  }
+  .subscribe-modal.light-mode {
+    .modal-holder {
+      .modal-container {
+        background-color: $color3;
+        h3 {
+          color: $color7;
+        }
+        .input-group {
+          label {
+            color: $color9;
+          }
+          input {
+            background-color: $color3;
+            color: $color9;
+            border: 1px solid $color7;
           }
         }
       }
