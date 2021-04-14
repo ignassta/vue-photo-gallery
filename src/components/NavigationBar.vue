@@ -117,4 +117,9 @@ export default {
       }
     }
   }
+  @media (max-width: 992px) {
+    .navigation-bar {
+      width: 50px;
+    }
+  }
 </style>
