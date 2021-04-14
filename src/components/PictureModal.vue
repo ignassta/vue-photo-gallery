@@ -74,6 +74,7 @@ export default {
       max-width: 1134px;
       max-height: 714px;
       width: 100%;
+      margin: 0 15px;
       .modal-container {
         position: relative;
         display: flex;
@@ -194,6 +195,68 @@ export default {
             }
             .column:nth-of-type(2) {
               flex-basis: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    .picture-modal {
+      .modal-holder {
+        .modal-container {
+          .picture-col {
+            width: 40%;
+          }
+          .info-col {
+            padding: 66px 15px 15px 15px;
+            width: 60%;
+            .picture-info {
+              .column {
+                flex-basis: 50% !important;
+                margin-top: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .picture-modal {
+      .modal-holder {
+        .modal-container {
+          .info-col {
+            .header {
+              .author {
+                .name {
+                  font-size: 20px;
+                }
+              }
+            }
+            .description div:nth-of-type(2) {
+              font-size: 18px;
+            }
+            .stats {
+              flex-direction: column;
+              div {
+                margin-top: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .picture-modal {
+      .modal-holder {
+        .modal-container {
+          .info-col {
+            .picture-info {
+              .column {
+                flex-basis: 100% !important;
+              }
             }
           }
         }

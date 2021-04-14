@@ -41,6 +41,7 @@ export default {
     .modal-holder {
       max-width: 610px;
       width: 100%;
+      margin: 0 15px;
       .modal-container {
         position: relative;
         background-color: $color2;
@@ -91,6 +92,15 @@ export default {
           &:hover {
             opacity: .7;
           }
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .subscribe-modal {
+      .modal-holder {
+        .modal-container {
+          padding: 64px 15px;
         }
       }
     }
