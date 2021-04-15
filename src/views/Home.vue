@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="{'light-mode' : lightMode}">
-    <div class="container">
+    <div class="container" v-for="(photos, index) in photoPages" :key="index">
       <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
         <a href="#like" class="like"></a>
@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      photos: {},
+      photoPages: [],
       selectedPhoto: {},
       showPictureModal: false
     }
@@ -38,15 +38,17 @@ export default {
       this.getSelectedPhoto(photo)
     },
     getPhotos () {
-      return axios.get(`${config.globalSettings.baseUrl}/search/photos?per_page=12&query=nature`, {
-        headers: { Authorization: config.globalSettings.accessKey }
-      })
-        .then(response => {
-          this.photos = response.data
+      for (let i = 1; i <= 3; i++) {
+        axios.get(`${config.globalSettings.baseUrl}/search/photos?page=${i}&per_page=12&query=nature`, {
+          headers: { Authorization: config.globalSettings.accessKey }
         })
-        .catch(error => {
-          console.log(error)
-        })
+          .then(response => {
+            this.photoPages.push(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
     getSelectedPhoto (photo) {
       this.selectedPhoto = photo
@@ -70,6 +72,7 @@ export default {
     .container {
       columns: 6 160px;
       column-gap: 20px;
+      max-height: 560px;
       .photo {
         position: relative;
         margin: 0 20px 20px 0;
@@ -110,6 +113,7 @@ export default {
     .home {
       .container {
         columns: 4 150px;
+        max-height: unset;
         .photo:nth-of-type(4),
         .photo:nth-of-type(8) {
           height: 180px;
