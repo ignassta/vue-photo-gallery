@@ -7,13 +7,19 @@
           <h3>Subscribe to our newsletter</h3>
           <div class="input-group">
             <label for="name">Your name</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" v-model="subscriber.name" :class="{'not-valid' : errors.name.length}">
+            <transition name="fade">
+              <span class="error" v-if="errors.name.length">{{errors.name[0]}}</span>
+            </transition>
           </div>
           <div class="input-group">
             <label for="email">Your email</label>
-            <input type="text" id="email" name="email">
+            <input type="text" id="email" name="email" v-model="subscriber.email" :class="{'not-valid' : errors.email.length}">
+            <transition name="fade">
+              <span class="error" v-if="errors.email.length">{{errors.email[0]}}</span>
+            </transition>
           </div>
-          <button class="subscribe-btn" type="button">Subscribe</button>
+          <button class="subscribe-btn" type="button" @click="submitSubscriber()">Subscribe</button>
         </form>
       </div>
     </div>
@@ -24,6 +30,39 @@
 export default {
   props: {
     lightMode: Boolean
+  },
+  data () {
+    return {
+      subscriber: {
+        name: '',
+        email: ''
+      },
+      errors: {
+        name: [],
+        email: []
+      }
+    }
+  },
+  methods: {
+    submitSubscriber () {
+      this.errors.name = []
+      this.errors.email = []
+      if (this.subscriber.name && this.validateEmail(this.subscriber.email)) {
+        this.$emit('close')
+      }
+      if (!this.subscriber.name) {
+        this.errors.name.push('Name is required.')
+      }
+      if (!this.subscriber.email) {
+        this.errors.email.push('Email is required.')
+      } else if (!this.validateEmail(this.subscriber.email)) {
+        this.errors.email.push('Email is not valid.')
+      }
+    },
+    validateEmail (email) {
+      const emailValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return emailValid.test(String(email).toLowerCase())
+    }
   }
 }
 </script>
@@ -70,6 +109,7 @@ export default {
           display: flex;
           flex-direction: column;
           margin-bottom: 24px;
+          position: relative;
           label {
             color: $color7;
             font-weight: 700;
@@ -82,6 +122,17 @@ export default {
             height: 40px;
             color: $color7;
             padding: 0 15px;
+            transition: all .5s;
+          }
+          input.not-valid {
+            border: 1px solid red;
+          }
+          .error {
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            color: red;
+            font-size: 12px;
           }
         }
         .subscribe-btn {

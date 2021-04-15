@@ -4,44 +4,44 @@
       <div class="modal-container">
         <button class="close-btn" @click="$emit('close')">&#x2715;</button>
         <div class="picture-col">
-          <img src="../assets/images/dog.jpg" alt="">
+          <img :src="selectedPhoto.urls.regular" :alt="selectedPhoto.alt_description">
         </div>
         <div class="info-col">
           <div class="top">
             <div class="header">
               <div class="author">
                 <div class="label">author</div>
-                <div class="name">Joe Doe</div>
+                <div class="name">{{selectedPhoto.user.name}}</div>
               </div>
               <button class="like"></button>
             </div>
             <div class="description">
               <div class="label">description</div>
-              <div>Summer set view</div>
+              <div>{{selectedPhoto.description}}</div>
             </div>
           </div>
           <div class="bottom">
             <div class="stats">
-              <div>186</div>
-              <div>20</div>
-              <div>1,992</div>
+              <div>{{selectedPhoto.likes}}</div>
+              <div>--</div>
+              <div>--</div>
             </div>
             <div class="picture-info">
               <div class="column">
                 <div class="label">Camera Make</div>
-                <div>Canon</div>
+                <div>--</div>
               </div>
               <div class="column">
                 <div class="label">Camera Model</div>
-                <div>Canon EOS Rebel T3</div>
+                <div>--</div>
               </div>
               <div class="column">
                 <div class="label">Focal Length</div>
-                <div>43.0mm</div>
+                <div>--</div>
               </div>
               <div class="column">
                 <div class="label">Dimensions</div>
-                <div>2848 x 4272</div>
+                <div>{{selectedPhoto.width}} x {{selectedPhoto.height}}</div>
               </div>
             </div>
           </div>
@@ -54,7 +54,8 @@
 <script>
 export default {
   props: {
-    lightMode: Boolean
+    lightMode: Boolean,
+    selectedPhoto: Object
   }
 }
 </script>
@@ -73,13 +74,13 @@ export default {
     justify-content: center;
     align-items: center;
     .modal-holder {
-      max-width: 1134px;
-      max-height: 714px;
-      width: 100%;
       margin: 0 15px;
       .modal-container {
         position: relative;
         display: flex;
+        max-width: 1134px;
+        max-height: 714px;
+        width: 100%;
         .close-btn {
           position: absolute;
           font-size: 40px;
@@ -95,7 +96,7 @@ export default {
           width: 50%;
         }
         .picture-col {
-          background-color: rgba($color6, .95);
+          background-color: rgba($color6, .9);
           img {
             width: 100%;
             height: 100%;
@@ -112,6 +113,7 @@ export default {
           justify-content: space-between;
           font-weight: 700;
           color: $color4;
+          min-height: 500px;
           .label {
             font-size: 12px;
             color: $color7;
@@ -141,6 +143,7 @@ export default {
             }
           }
           .description {
+            margin-bottom: 15px;
             div:nth-of-type(2) {
               font-size: 20px;
             }
@@ -207,7 +210,7 @@ export default {
     .modal-holder {
       .modal-container {
         .picture-col {
-          background-color: rgba($color3, .95);
+          background-color: rgba($color3, .9);
         }
         .info-col {
           background-color: $color3;

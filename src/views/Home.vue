@@ -1,15 +1,15 @@
 <template>
   <div class="home" :class="{'light-mode' : lightMode}">
     <div class="container">
-      <a href="#" class="photo" v-for="n in 12" :key="n" @click.prevent="togglePictureModal">
-        <img src="../assets/images/dog.jpg" alt="">
+      <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
+        <img :src="photo.urls.regular" :alt="photo.alt_description">
         <a href="#like" class="like"></a>
       </a>
     </div>
   </div>
   <teleport to="body">
     <transition name="fade">
-      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode"></picture-modal>
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto"/>
     </transition>
   </teleport>
 </template>
@@ -24,7 +24,8 @@ export default {
   },
   data () {
     return {
-      photos: null,
+      photos: {},
+      selectedPhoto: {},
       showPictureModal: false
     }
   },
@@ -32,8 +33,12 @@ export default {
     lightMode: Boolean
   },
   methods: {
+    handlePhotoClick (photo) {
+      this.togglePictureModal()
+      this.getSelectedPhoto(photo)
+    },
     getPhotos () {
-      return axios.get(`${config.globalSettings.baseUrl}/photos`, {
+      return axios.get(`${config.globalSettings.baseUrl}/search/photos?per_page=12&query=nature`, {
         headers: { Authorization: config.globalSettings.accessKey }
       })
         .then(response => {
@@ -43,12 +48,15 @@ export default {
           console.log(error)
         })
     },
+    getSelectedPhoto (photo) {
+      this.selectedPhoto = photo
+    },
     togglePictureModal () {
       this.showPictureModal = !this.showPictureModal
     }
   },
   async mounted () {
-    // await this.getPhotos()
+    await this.getPhotos()
   }
 }
 </script>
