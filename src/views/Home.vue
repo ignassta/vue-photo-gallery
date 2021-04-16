@@ -3,7 +3,7 @@
     <div class="container" v-for="(photos, index) in photoPages" :key="index">
       <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotos.includes(photo.id)}"></button>
+        <button class="like" @click.prevent.stop="$emit('like-photo', photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -19,6 +19,7 @@ import axios from 'axios'
 import * as config from '../config'
 import PictureModal from '../components/PictureModal'
 export default {
+  emits: ['like-photo'],
   components: {
     PictureModal
   },
@@ -27,12 +28,12 @@ export default {
       photoPages: [],
       selectedPhoto: {},
       showPictureModal: false,
-      photoBlock: 3,
-      likedPhotos: []
+      photoBlock: 3
     }
   },
   props: {
-    lightMode: Boolean
+    lightMode: Boolean,
+    likedPhotoIds: Array
   },
   methods: {
     handlePhotoClick (photo) {
@@ -73,32 +74,11 @@ export default {
             })
         }
       }
-    },
-    likePhoto (photoId) {
-      if (!this.likedPhotos.includes(photoId)) {
-        this.likedPhotos.push(photoId)
-      } else {
-        this.likedPhotos = this.likedPhotos.filter(item => item !== photoId)
-      }
-    },
-    getLikedPhotosFromStorage () {
-      this.likedPhotos = JSON.parse(localStorage.getItem('likedPhotos'))
-    }
-  },
-  watch: {
-    likedPhotos: {
-      handler () {
-        window.localStorage.setItem('likedPhotos', JSON.stringify(this.likedPhotos))
-      },
-      deep: true
     }
   },
   async mounted () {
     await this.getInitPhotos()
     this.onScroll()
-    if (localStorage.getItem('likedPhotos')) {
-      await this.getLikedPhotosFromStorage()
-    }
   }
 }
 </script>

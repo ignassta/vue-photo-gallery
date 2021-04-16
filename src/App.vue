@@ -1,6 +1,6 @@
 <template>
   <navigation-bar v-on:toggle-light-mode="getColorModeStatus"/>
-  <router-view :light-mode="lightMode"/>
+  <router-view :light-mode="lightMode" :liked-photo-ids="likedPhotoIds" @like-photo="likePhoto"/>
 </template>
 
 <script>
@@ -11,12 +11,36 @@ export default {
   },
   data () {
     return {
-      lightMode: false
+      lightMode: false,
+      likedPhotoIds: []
     }
   },
   methods: {
     getColorModeStatus (colorModeStatus) {
       this.lightMode = colorModeStatus
+    },
+    likePhoto (photoId) {
+      if (!this.likedPhotoIds.includes(photoId)) {
+        this.likedPhotoIds.push(photoId)
+      } else {
+        this.likedPhotoIds = this.likedPhotoIds.filter(item => item !== photoId)
+      }
+    },
+    getLikedPhotosFromStorage () {
+      this.likedPhotoIds = JSON.parse(localStorage.getItem('likedPhotos'))
+    }
+  },
+  mounted () {
+    if (localStorage.getItem('likedPhotos')) {
+      this.getLikedPhotosFromStorage()
+    }
+  },
+  watch: {
+    likedPhotos: {
+      handler () {
+        window.localStorage.setItem('likedPhotos', JSON.stringify(this.likedPhotos))
+      },
+      deep: true
     }
   }
 }
