@@ -3,7 +3,7 @@
     <div class="container" v-for="(photos, index) in photoPages" :key="index">
       <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <a href="#like" class="like"></a>
+        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotos.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -26,7 +26,9 @@ export default {
     return {
       photoPages: [],
       selectedPhoto: {},
-      showPictureModal: false
+      showPictureModal: false,
+      photoBlock: 3,
+      likedPhotos: []
     }
   },
   props: {
@@ -37,9 +39,9 @@ export default {
       this.togglePictureModal()
       this.getSelectedPhoto(photo)
     },
-    getPhotos () {
+    getInitPhotos () {
       for (let i = 1; i <= 3; i++) {
-        axios.get(`${config.globalSettings.baseUrl}/search/photos?page=${i}&per_page=12&query=nature`, {
+        axios.get(`${config.globalSettings.baseUrl}/search/photos?page=${i}&per_page=12&query=alpaca`, {
           headers: { Authorization: config.globalSettings.accessKey }
         })
           .then(response => {
@@ -55,10 +57,48 @@ export default {
     },
     togglePictureModal () {
       this.showPictureModal = !this.showPictureModal
+    },
+    onScroll () {
+      window.onscroll = () => {
+        if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) {
+          this.photoBlock++
+          axios.get(`${config.globalSettings.baseUrl}/search/photos?page=${this.photoBlock}&per_page=12&query=alpaca`, {
+            headers: { Authorization: config.globalSettings.accessKey }
+          })
+            .then(response => {
+              this.photoPages.push(response.data)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      }
+    },
+    likePhoto (photoId) {
+      if (!this.likedPhotos.includes(photoId)) {
+        this.likedPhotos.push(photoId)
+      } else {
+        this.likedPhotos = this.likedPhotos.filter(item => item !== photoId)
+      }
+    },
+    getLikedPhotosFromStorage () {
+      this.likedPhotos = JSON.parse(localStorage.getItem('likedPhotos'))
+    }
+  },
+  watch: {
+    likedPhotos: {
+      handler () {
+        window.localStorage.setItem('likedPhotos', JSON.stringify(this.likedPhotos))
+      },
+      deep: true
     }
   },
   async mounted () {
-    await this.getPhotos()
+    await this.getInitPhotos()
+    this.onScroll()
+    if (localStorage.getItem('likedPhotos')) {
+      await this.getLikedPhotosFromStorage()
+    }
   }
 }
 </script>
@@ -91,13 +131,16 @@ export default {
           width: 40px;
           height: 40px;
           background-color: $color5;
-          background-image: url('../assets/images/heart-full.svg');
+          background-image: url('../assets/images/heart-white.svg');
           background-repeat: no-repeat;
           background-position: center;
           background-size: 55%;
           &:hover {
             opacity: .7;
           }
+        }
+        .like.liked {
+          background-image: url('../assets/images/heart-full-white.svg');
         }
       }
       .photo:nth-of-type(4n+2),

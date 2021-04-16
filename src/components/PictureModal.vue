@@ -133,7 +133,7 @@ export default {
               width: 50px;
               height: 50px;
               background-color: $color5;
-              background-image: url('../assets/images/heart-full.svg');
+              background-image: url('../assets/images/heart-full-white.svg');
               background-repeat: no-repeat;
               background-position: center;
               background-size: 55%;
@@ -169,7 +169,7 @@ export default {
             }
             div:nth-of-type(1) {
               &:before {
-                background-image: url("./../assets/images/heart-full.svg");
+                background-image: url("./../assets/images/heart-full-white.svg");
               }
             }
             div:nth-of-type(2) {
