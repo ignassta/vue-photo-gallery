@@ -1,7 +1,7 @@
 <template>
   <div class="favourites" :class="{'light-mode' : lightMode}">
-    <div class="container">
-      <a href="#" class="photo" v-for="photo in likedPhotos" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
+    <div class="container" v-for="i in Math.ceil(likedPhotos.length / 12)" :key="i">
+      <a href="#" class="photo" v-for="photo in likedPhotos.slice((i - 1) * 12, i * 12)" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
         <button class="like" @click.prevent.stop="$emit('like-photo', photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
@@ -75,6 +75,7 @@ export default {
     .container {
       columns: 6 160px;
       column-gap: 20px;
+      max-height: 560px;
       .photo {
         position: relative;
         margin: 0 20px 20px 0;
@@ -105,6 +106,10 @@ export default {
           background-image: url('../assets/images/heart-full-white.svg');
         }
       }
+      .photo:nth-of-type(4n+2),
+      .photo:nth-of-type(4n+3) {
+        height: 180px;
+      }
     }
   }
   .favourites.light-mode {
@@ -114,6 +119,11 @@ export default {
     .favourites {
       .container {
         columns: 4 150px;
+        max-height: unset;
+        .photo:nth-of-type(4),
+        .photo:nth-of-type(8) {
+          height: 180px;
+        }
       }
     }
   }
