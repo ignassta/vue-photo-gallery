@@ -1,7 +1,7 @@
 <template>
   <div class="favourites" :class="{'light-mode' : lightMode}">
     <div class="container">
-      <a href="#" class="photo" v-for="photo in likedPhotos" :key="photo.id">
+      <a href="#" class="photo" v-for="photo in likedPhotos" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
         <button class="like" @click.prevent.stop="$emit('like-photo', photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
@@ -9,7 +9,7 @@
   </div>
   <teleport to="body">
     <transition name="fade">
-      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto"/>
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto" :liked-photo-ids="likedPhotoIds"/>
     </transition>
   </teleport>
 </template>

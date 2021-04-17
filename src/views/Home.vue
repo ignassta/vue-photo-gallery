@@ -9,7 +9,7 @@
   </div>
   <teleport to="body">
     <transition name="fade">
-      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto"/>
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto" :liked-photo-ids="likedPhotoIds"/>
     </transition>
   </teleport>
 </template>

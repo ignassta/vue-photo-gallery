@@ -13,7 +13,7 @@
                 <div class="label">author</div>
                 <div class="name">{{selectedPhoto.user.name}}</div>
               </div>
-              <button class="like"></button>
+              <button class="like" :class="{'liked' : likedPhotoIds.includes(selectedPhoto.id)}"></button>
             </div>
             <div class="description">
               <div class="label">description</div>
@@ -55,7 +55,8 @@
 export default {
   props: {
     lightMode: Boolean,
-    selectedPhoto: Object
+    selectedPhoto: Object,
+    likedPhotoIds: Array
   }
 }
 </script>
@@ -133,13 +134,16 @@ export default {
               width: 50px;
               height: 50px;
               background-color: $color5;
-              background-image: url('../assets/images/heart-full-white.svg');
+              background-image: url('../assets/images/heart-white.svg');
               background-repeat: no-repeat;
               background-position: center;
               background-size: 55%;
               &:hover {
                 opacity: .7;
               }
+            }
+            .like.liked {
+              background-image: url('../assets/images/heart-full-white.svg');
             }
           }
           .description {
