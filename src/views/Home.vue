@@ -3,7 +3,7 @@
     <div class="container" v-for="(photos, index) in photoPages" :key="index">
       <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <button class="like" @click.prevent.stop="$emit('like-photo', photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
+        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -36,6 +36,9 @@ export default {
     likedPhotoIds: Array
   },
   methods: {
+    likePhoto (photoId) {
+      this.$emit('like-photo', photoId)
+    },
     handlePhotoClick (photo) {
       this.togglePictureModal()
       this.getSelectedPhoto(photo)

@@ -53,6 +53,7 @@
 
 <script>
 export default {
+  emits: ['close'],
   props: {
     lightMode: Boolean,
     selectedPhoto: Object,

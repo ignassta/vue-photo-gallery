@@ -3,7 +3,7 @@
     <div class="container" v-for="i in Math.ceil(likedPhotos.length / 12)" :key="i">
       <a href="#" class="photo" v-for="photo in likedPhotos.slice((i - 1) * 12, i * 12)" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <button class="like" @click.prevent.stop="$emit('like-photo', photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
+        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -35,6 +35,9 @@ export default {
     likedPhotoIds: Array
   },
   methods: {
+    likePhoto (photoId) {
+      this.$emit('like-photo', photoId)
+    },
     handlePhotoClick (photo) {
       this.togglePictureModal()
       this.getSelectedPhoto(photo)
