@@ -7,16 +7,27 @@
       </a>
     </div>
   </div>
+  <teleport to="body">
+    <transition name="fade">
+      <picture-modal v-if="showPictureModal" @close="togglePictureModal()" :light-mode="lightMode" :selected-photo="selectedPhoto"/>
+    </transition>
+  </teleport>
 </template>
 
 <script>
 import axios from 'axios'
 import * as config from '../config'
+import PictureModal from '../components/PictureModal'
 export default {
+  emits: ['like-photo'],
+  components: {
+    PictureModal
+  },
   data () {
     return {
       likedPhotos: [],
-      selectedPhoto: {}
+      selectedPhoto: {},
+      showPictureModal: false
     }
   },
   props: {
@@ -24,6 +35,16 @@ export default {
     likedPhotoIds: Array
   },
   methods: {
+    handlePhotoClick (photo) {
+      this.togglePictureModal()
+      this.getSelectedPhoto(photo)
+    },
+    getSelectedPhoto (photo) {
+      this.selectedPhoto = photo
+    },
+    togglePictureModal () {
+      this.showPictureModal = !this.showPictureModal
+    },
     createLikedPhotosObject () {
       this.likedPhotoIds.forEach(this.getPhotoById)
     },

@@ -36,9 +36,9 @@ export default {
     }
   },
   watch: {
-    likedPhotos: {
+    likedPhotoIds: {
       handler () {
-        window.localStorage.setItem('likedPhotos', JSON.stringify(this.likedPhotos))
+        window.localStorage.setItem('likedPhotos', JSON.stringify(this.likedPhotoIds))
       },
       deep: true
     }
