@@ -1,46 +1,46 @@
 <template>
-  <div class="picture-modal" :class="{'light-mode' : lightMode}">
-    <div class="modal-holder">
-      <div class="modal-container">
-        <button class="close-btn" @click="$emit('close')">&#x2715;</button>
-        <div class="picture-col">
+  <div class="picture-modal" :class="{'picture-modal_light-mode' : lightMode}">
+    <div class="picture-modal__wrapper">
+      <div class="picture-modal__container">
+        <button class="picture-modal__close-button" @click="$emit('close')">&#x2715;</button>
+        <div class="picture-modal__picture-column">
           <img :src="selectedPhoto.urls.regular" :alt="selectedPhoto.alt_description">
         </div>
-        <div class="info-col">
-          <div class="top">
-            <div class="header">
-              <div class="author">
-                <div class="label">author</div>
-                <div class="name">{{selectedPhoto.user.name}}</div>
+        <div class="picture-modal__info-column">
+          <div class="picture-modal__top">
+            <div class="picture-modal__header">
+              <div class="picture-modal__author">
+                <div class="picture-modal__label">author</div>
+                <div class="picture-modal__name">{{selectedPhoto.user.name}}</div>
               </div>
-              <button class="like" :class="{'liked' : likedPhotoIds.includes(selectedPhoto.id)}"></button>
+              <div class="picture-modal__like" :class="{'liked' : likedPhotoIds.includes(selectedPhoto.id)}"></div>
             </div>
-            <div class="description">
-              <div class="label">description</div>
+            <div class="picture-modal__description">
+              <div class="picture-modal__label">description</div>
               <div>{{selectedPhoto.description}}</div>
             </div>
           </div>
-          <div class="bottom">
-            <div class="stats">
+          <div class="picture-modal__bottom">
+            <div class="picture-modal__stats">
               <div>{{selectedPhoto.likes}}</div>
               <div>--</div>
               <div>--</div>
             </div>
-            <div class="picture-info">
-              <div class="column">
-                <div class="label">Camera Make</div>
+            <div class="picture-modal__picture-info">
+              <div class="picture-modal__column">
+                <div class="picture-modal__label">Camera Make</div>
                 <div>--</div>
               </div>
-              <div class="column">
-                <div class="label">Camera Model</div>
+              <div class="picture-modal__column">
+                <div class="picture-modal__label">Camera Model</div>
                 <div>--</div>
               </div>
-              <div class="column">
-                <div class="label">Focal Length</div>
+              <div class="picture-modal__column">
+                <div class="picture-modal__label">Focal Length</div>
                 <div>--</div>
               </div>
-              <div class="column">
-                <div class="label">Dimensions</div>
+              <div class="picture-modal__column">
+                <div class="picture-modal__label">Dimensions</div>
                 <div>{{selectedPhoto.width}} x {{selectedPhoto.height}}</div>
               </div>
             </div>
@@ -75,15 +75,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    .modal-holder {
+    .picture-modal__wrapper {
       margin: 0 15px;
-      .modal-container {
+      .picture-modal__container {
         position: relative;
         display: flex;
         max-width: 1134px;
         max-height: 714px;
         width: 100%;
-        .close-btn {
+        .picture-modal__close-button {
           position: absolute;
           font-size: 40px;
           line-height: 1;
@@ -94,10 +94,10 @@ export default {
             opacity: .7;
           }
         }
-        .picture-col, .info-col {
+        .picture-modal__picture-column, .picture-modal__info-column {
           width: 50%;
         }
-        .picture-col {
+        .picture-modal__picture-column {
           background-color: rgba($color6, .9);
           img {
             width: 100%;
@@ -105,7 +105,7 @@ export default {
             object-fit: contain;
           }
         }
-        .info-col {
+        .picture-modal__info-column {
           background-color: $color2;
           box-sizing: border-box;
           padding: 66px 58px 45px 58px;
@@ -116,22 +116,22 @@ export default {
           font-weight: 700;
           color: $color4;
           min-height: 500px;
-          .label {
+          .picture-modal__label {
             font-size: 12px;
             color: $color7;
             margin-bottom: 5px;
           }
-          .header {
+          .picture-modal__header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 32px;
-            .author {
-              .name {
+            .picture-modal__author {
+              .picture-modal__name {
                 font-size: 24px;
                 color: $color5;
               }
             }
-            .like {
+            .picture-modal__like {
               width: 50px;
               height: 50px;
               background-color: $color5;
@@ -139,21 +139,18 @@ export default {
               background-repeat: no-repeat;
               background-position: center;
               background-size: 55%;
-              &:hover {
-                opacity: .7;
-              }
             }
-            .like.liked {
+            .picture-modal__like.picture-modal__like_liked {
               background-image: url('../assets/images/heart-full-white.svg');
             }
           }
-          .description {
+          .picture-modal__description {
             margin-bottom: 15px;
             div:nth-of-type(2) {
               font-size: 20px;
             }
           }
-          .stats {
+          .picture-modal__stats {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 32px;
@@ -191,11 +188,11 @@ export default {
               margin-right: 50px;
             }
           }
-          .picture-info {
+          .picture-modal__picture-info {
             border-top: 1px solid $color9;
             display: flex;
             flex-wrap: wrap;
-            .column {
+            .picture-modal__column {
               margin-top: 32px;
               flex-basis: 30%;
               flex-grow: 1;
@@ -203,7 +200,7 @@ export default {
                 font-size: 16px;
               }
             }
-            .column:nth-of-type(2) {
+            .picture-modal__column:nth-of-type(2) {
               flex-basis: 40%;
             }
           }
@@ -211,19 +208,19 @@ export default {
       }
     }
   }
-  .picture-modal.light-mode {
-    .modal-holder {
-      .modal-container {
-        .picture-col {
+  .picture-modal.picture-modal_light-mode {
+    .picture-modal__wrapper {
+      .picture-modal__container {
+        .picture-modal__picture-column {
           background-color: rgba($color3, .9);
         }
-        .info-col {
+        .picture-modal__info-column {
           background-color: $color3;
           color: $color2;
-          .label {
+          .picture-modal__label {
             color: $color9;
           }
-          .stats {
+          .picture-modal__stats {
             div {
               &:before {
                 filter: invert(100%);
@@ -236,16 +233,16 @@ export default {
   }
   @media (max-width: 992px) {
     .picture-modal {
-      .modal-holder {
-        .modal-container {
-          .picture-col {
+      .picture-modal__wrapper {
+        .picture-modal__container {
+          .picture-modal__picture-column {
             width: 40%;
           }
-          .info-col {
+          .picture-modal__info-column {
             padding: 66px 15px 15px 15px;
             width: 60%;
-            .picture-info {
-              .column {
+            .picture-modal__picture-info {
+              .picture-modal__column {
                 flex-basis: 50% !important;
                 margin-top: 15px;
               }
@@ -257,20 +254,22 @@ export default {
   }
   @media (max-width: 768px) {
     .picture-modal {
-      .modal-holder {
-        .modal-container {
-          .info-col {
-            .header {
-              .author {
-                .name {
+      .picture-modal__wrapper {
+        .picture-modal__container {
+          .picture-modal__info-column {
+            .picture-modal__header {
+              .picture-modal__author {
+                .picture-modal__name {
                   font-size: 20px;
                 }
               }
             }
-            .description div:nth-of-type(2) {
-              font-size: 18px;
+            .picture-modal__description {
+              div:nth-of-type(2) {
+                font-size: 18px;
+              }
             }
-            .stats {
+            .picture-modal__stats {
               flex-direction: column;
               div {
                 margin-top: 5px;
@@ -283,11 +282,11 @@ export default {
   }
   @media (max-width: 576px) {
     .picture-modal {
-      .modal-holder {
-        .modal-container {
-          .info-col {
-            .picture-info {
-              .column {
+      .picture-modal__wrapper {
+        .picture-modal__container {
+          .picture-modal__info-column {
+            .picture-modal__picture-info {
+              .picture-modal__column {
                 flex-basis: 100% !important;
               }
             }

@@ -1,17 +1,17 @@
 <template>
-  <div class="navigation-bar" :class="{'light-mode' : lightMode}">
-    <div class="logo-holder">
+  <div class="navigation-bar" :class="{'navigation-bar_light-mode' : lightMode}">
+    <div class="navigation-bar__logo">
       <router-link to="/">
         <img src="../assets/images/LOGO--SMALL.svg" alt="logo">
       </router-link>
     </div>
-    <div class="nav-holder">
-      <router-link to="/" class="home-link"/>
-      <router-link to="/favourites" class="favourites-link"/>
+    <div class="navigation-bar__navigation">
+      <router-link to="/" class="navigation-bar__home-link"/>
+      <router-link to="/favourites" class="navigation-bar__favourites-link"/>
     </div>
-    <div class="preferences-holder">
-      <button type="button" class="subscribe-btn" @click="toggleSubscribeModal()"></button>
-      <button type="button" class="color-mode-btn" @click="toggleLightMode()"></button>
+    <div class="navigation-bar__preferences">
+      <button type="button" class="navigation-bar__subscribe-button" @click="toggleSubscribeModal()"></button>
+      <button type="button" class="navigation-bar__color-mode-button" @click="toggleLightMode()"></button>
     </div>
   </div>
   <teleport to="body">
@@ -73,11 +73,11 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .logo-holder {
+    .navigation-bar__logo {
       padding-top: 30px;
       margin: 0 auto;
     }
-    .nav-holder {
+    .navigation-bar__navigation {
       display: flex;
       flex-direction: column;
       a {
@@ -88,20 +88,20 @@ export default {
       a.router-link-active {
         background-color: $color5;
       }
-      a.home-link {
+      a.navigation-bar__home-link {
         &:after {
           filter: invert(100%);
           background-image: url('../assets/images/picture.svg');
         }
       }
-      a.favourites-link {
+      a.navigation-bar__favourites-link {
         &:after {
           filter: invert(100%);
           background-image: url('../assets/images/heart.svg');
         }
       }
     }
-    .preferences-holder {
+    .navigation-bar__preferences {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -111,14 +111,14 @@ export default {
         height: 24px;
         @include btn-style;
       }
-      button.subscribe-btn {
+      button.navigation-bar__subscribe-button {
         margin-bottom: 25px;
         &:after {
           filter: invert(100%);
           background-image: url('../assets/images/letter.svg');
         }
       }
-      button.color-mode-btn {
+      button.navigation-bar__color-mode-button {
         &:after {
           filter: invert(100%);
           background-image: url('../assets/images/sun.svg');
@@ -126,25 +126,25 @@ export default {
       }
     }
   }
-  .navigation-bar.light-mode {
+  .navigation-bar.navigation-bar_light-mode {
     background-color: $color3;
-    .logo-holder {
+    .navigation-bar__logo {
       filter: invert(100%);
     }
-    .nav-holder {
+    .navigation-bar__navigation-holder {
       a:not(.router-link-active) {
         &:after {
           filter: invert(0);
         }
       }
     }
-    .preferences-holder {
-      button.subscribe-btn {
+    .navigation-bar__preferences {
+      button.navigation-bar__subscribe-button {
         &:after {
           filter: invert(0);
         }
       }
-      button.color-mode-btn {
+      button.navigation-bar__color-mode-button {
         &:after {
           filter: invert(0);
           background-image: url('../assets/images/moon.svg');
@@ -155,9 +155,6 @@ export default {
   @media (max-width: 992px) {
     .navigation-bar {
       width: 50px;
-    }
-    .nav-holder {
-      filter: invert(0);
     }
   }
 </style>

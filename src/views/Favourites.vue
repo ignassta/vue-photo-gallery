@@ -1,9 +1,9 @@
 <template>
-  <div class="favourites" :class="{'light-mode' : lightMode}">
-    <div class="container" v-for="i in Math.ceil(likedPhotos.length / 12)" :key="i">
-      <a href="#" class="photo" v-for="photo in likedPhotos.slice((i - 1) * 12, i * 12)" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
+  <div class="favourites" :class="{'favourites_light-mode' : lightMode}">
+    <div class="favourites__container" v-for="i in Math.ceil(likedPhotos.length / 12)" :key="i">
+      <a href="#" class="favourites__photo" v-for="photo in likedPhotos.slice((i - 1) * 12, i * 12)" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
+        <button class="favourites__like-button" @click.prevent.stop="likePhoto(photo.id)" :class="{'favourites__like-button_liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -75,11 +75,11 @@ export default {
     padding: 20px 20px 20px 110px;
     background-color: $color2;
     min-height: calc(100vh - 40px);
-    .container {
+    .favourites__container {
       columns: 6 160px;
       column-gap: 20px;
       max-height: 560px;
-      .photo {
+      .favourites__photo {
         position: relative;
         margin: 0 20px 20px 0;
         display: inline-block;
@@ -90,7 +90,7 @@ export default {
           height: 100%;
           object-fit: cover;
         }
-        .like {
+        .favourites__like-button {
           position: absolute;
           top: 0;
           right: 0;
@@ -105,26 +105,26 @@ export default {
             opacity: .7;
           }
         }
-        .like.liked {
+        .favourites__like-button.favourites__like-button_liked {
           background-image: url('../assets/images/heart-full-white.svg');
         }
       }
-      .photo:nth-of-type(4n+2),
-      .photo:nth-of-type(4n+3) {
+      .favourites__photo:nth-of-type(4n+2),
+      .favourites__photo:nth-of-type(4n+3) {
         height: 180px;
       }
     }
   }
-  .favourites.light-mode {
+  .favourites.favourites_light-mode {
     background-color: $color4;
   }
   @media (max-width: 1200px) {
     .favourites {
-      .container {
+      .favourites__container {
         columns: 4 150px;
         max-height: unset;
-        .photo:nth-of-type(4),
-        .photo:nth-of-type(8) {
+        .favourites__photo:nth-of-type(4),
+        .favourites__photo:nth-of-type(8) {
           height: 180px;
         }
       }
@@ -137,7 +137,7 @@ export default {
   }
   @media (max-width: 768px) {
     .favourites {
-      .container {
+      .favourites__container {
         columns: 2 90px;
       }
     }

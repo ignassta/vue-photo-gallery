@@ -1,25 +1,25 @@
 <template>
-  <div class="subscribe-modal" :class="{'light-mode' : lightMode}">
-    <div class="modal-holder">
-      <div class="modal-container">
-        <button class="close-btn" @click="$emit('close')">&#x2715;</button>
+  <div class="subscribe-modal" :class="{'subscribe-modal_light-mode' : lightMode}">
+    <div class="subscribe-modal__wrapper">
+      <div class="subscribe-modal__container">
+        <button class="subscribe-modal__close-button" @click="$emit('close')">&#x2715;</button>
         <form>
           <h3>Subscribe to our newsletter</h3>
-          <div class="input-group">
+          <div class="subscribe-modal__input-group">
             <label for="name">Your name</label>
-            <input type="text" id="name" name="name" v-model="subscriber.name" :class="{'not-valid' : errors.name.length}">
+            <input type="text" id="name" name="name" v-model="subscriber.name" :class="{'subscribe-modal__input_not-valid' : errors.name.length}">
             <transition name="fade">
-              <span class="error" v-if="errors.name.length">{{errors.name[0]}}</span>
+              <span class="subscribe-modal__error" v-if="errors.name.length">{{errors.name[0]}}</span>
             </transition>
           </div>
-          <div class="input-group">
+          <div class="subscribe-modal__input-group">
             <label for="email">Your email</label>
-            <input type="text" id="email" name="email" v-model="subscriber.email" :class="{'not-valid' : errors.email.length}">
+            <input type="text" id="email" name="email" v-model="subscriber.email" :class="{'subscribe-modal__input_not-valid' : errors.email.length}">
             <transition name="fade">
-              <span class="error" v-if="errors.email.length">{{errors.email[0]}}</span>
+              <span class="subscribe-modal__error" v-if="errors.email.length">{{errors.email[0]}}</span>
             </transition>
           </div>
-          <button class="subscribe-btn" type="button" @click="submitSubscriber()">Subscribe</button>
+          <button class="subscribe-modal__subscribe-button" type="button" @click="submitSubscriber()">Subscribe</button>
         </form>
       </div>
     </div>
@@ -80,15 +80,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    .modal-holder {
+    .subscribe-modal__wrapper {
       max-width: 610px;
       width: 100%;
       margin: 0 15px;
-      .modal-container {
+      .subscribe-modal__container {
         position: relative;
         background-color: $color2;
         padding: 64px 58px;
-        .close-btn {
+        .subscribe-modal__close-button {
           position: absolute;
           font-size: 40px;
           line-height: 1;
@@ -105,7 +105,7 @@ export default {
           font-size: 20px;
           margin-bottom: 40px;
         }
-        .input-group {
+        .subscribe-modal__input-group {
           display: flex;
           flex-direction: column;
           margin-bottom: 24px;
@@ -124,10 +124,10 @@ export default {
             padding: 0 15px;
             transition: all .5s;
           }
-          input.not-valid {
+          input.subscribe-modal__input_not-valid {
             border: 1px solid red;
           }
-          .error {
+          .subscribe-modal__error {
             position: absolute;
             left: 0;
             bottom: -15px;
@@ -135,7 +135,7 @@ export default {
             font-size: 12px;
           }
         }
-        .subscribe-btn {
+        .subscribe-modal__subscribe-button {
           background-color: $color5;
           color: $color4;
           font-size: 16px;
@@ -150,14 +150,14 @@ export default {
       }
     }
   }
-  .subscribe-modal.light-mode {
-    .modal-holder {
-      .modal-container {
+  .subscribe-modal.subscribe-modal_light-mode {
+    .subscribe-modal__wrapper {
+      .subscribe-modal__container {
         background-color: $color3;
         h3 {
           color: $color7;
         }
-        .input-group {
+        .subscribe-modal__input-group {
           label {
             color: $color9;
           }
@@ -172,8 +172,8 @@ export default {
   }
   @media (max-width: 576px) {
     .subscribe-modal {
-      .modal-holder {
-        .modal-container {
+      .subscribe-modal__wrapper {
+        .subscribe-modal__container {
           padding: 64px 15px;
         }
       }

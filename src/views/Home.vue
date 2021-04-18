@@ -1,9 +1,9 @@
 <template>
-  <div class="home" :class="{'light-mode' : lightMode}">
-    <div class="container" v-for="(photos, index) in photoPages" :key="index">
-      <a href="#" class="photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
+  <div class="home" :class="{'home_light-mode' : lightMode}">
+    <div class="home__container" v-for="(photos, index) in photoPages" :key="index">
+      <a href="#" class="home__photo" v-for="photo in photos.results" :key="photo.id" @click.prevent="handlePhotoClick(photo)">
         <img :src="photo.urls.regular" :alt="photo.alt_description">
-        <button class="like" @click.prevent.stop="likePhoto(photo.id)" :class="{'liked' : likedPhotoIds.includes(photo.id)}"></button>
+        <button class="home__like-button" @click.prevent.stop="likePhoto(photo.id)" :class="{'home__like-button_liked' : likedPhotoIds.includes(photo.id)}"></button>
       </a>
     </div>
   </div>
@@ -92,11 +92,11 @@ export default {
     padding: 20px 20px 20px 110px;
     background-color: $color2;
     min-height: calc(100vh - 40px);
-    .container {
+    .home__container {
       columns: 6 160px;
       column-gap: 20px;
       max-height: 560px;
-      .photo {
+      .home__photo {
         position: relative;
         margin: 0 20px 20px 0;
         display: inline-block;
@@ -107,7 +107,7 @@ export default {
           height: 100%;
           object-fit: cover;
         }
-        .like {
+        .home__like-button {
           position: absolute;
           top: 0;
           right: 0;
@@ -122,26 +122,26 @@ export default {
             opacity: .7;
           }
         }
-        .like.liked {
+        .home__like-button.home__like-button_liked {
           background-image: url('../assets/images/heart-full-white.svg');
         }
       }
-      .photo:nth-of-type(4n+2),
-      .photo:nth-of-type(4n+3) {
+      .home__photo:nth-of-type(4n+2),
+      .home__photo:nth-of-type(4n+3) {
         height: 180px;
       }
     }
   }
-  .home.light-mode {
+  .home.home_light-mode {
     background-color: $color4;
   }
   @media (max-width: 1200px) {
     .home {
-      .container {
+      .home__container {
         columns: 4 150px;
         max-height: unset;
-        .photo:nth-of-type(4),
-        .photo:nth-of-type(8) {
+        .home__photo:nth-of-type(4),
+        .home__photo:nth-of-type(8) {
           height: 180px;
         }
       }
@@ -154,7 +154,7 @@ export default {
   }
   @media (max-width: 768px) {
     .home {
-      .container {
+      .home__container {
         columns: 2 90px;
       }
     }
