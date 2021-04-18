@@ -131,7 +131,7 @@ export default {
     .navigation-bar__logo {
       filter: invert(100%);
     }
-    .navigation-bar__navigation-holder {
+    .navigation-bar__navigation {
       a:not(.router-link-active) {
         &:after {
           filter: invert(0);
