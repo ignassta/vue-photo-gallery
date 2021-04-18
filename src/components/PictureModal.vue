@@ -13,7 +13,7 @@
                 <div class="picture-modal__label">author</div>
                 <div class="picture-modal__name">{{selectedPhoto.user.name}}</div>
               </div>
-              <div class="picture-modal__like" :class="{'liked' : likedPhotoIds.includes(selectedPhoto.id)}"></div>
+              <div class="picture-modal__like" :class="{'picture-modal__like_liked' : likedPhotoIds.includes(selectedPhoto.id)}"></div>
             </div>
             <div class="picture-modal__description">
               <div class="picture-modal__label">description</div>
